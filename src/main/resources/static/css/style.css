@@ -1,0 +1,52 @@
+#Top {
+    background-color: #fff;
+    height: 44px;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.22);
+    padding: 0px 20px 0px 20px;
+}
+.content {
+    min-width: 600px;
+    max-width: 1100px;
+    margin: 0px auto 0px auto;
+}
+a:link, a:visited, a:active {
+    color: #778087;
+    text-decoration: none;
+    word-break: break-all;
+}
+#q {
+    border: none;
+    width: 222px;
+    height: 26px;
+    margin: 0px 0px 2px 30px;
+    background-color: transparent;
+    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important;
+    font-size: 12px;
+    line-height: 16px;
+    outline: none;
+}
+a.top:link, a.top:visited {
+    color: #556;
+    text-decoration: none;
+}
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+}
+
+
+
+#Wrapper {
+    text-align: center;
+    background-color: #e2e2e2;
+    background-image: url(/img/shadow_light.png);
+    background-repeat: repeat-x;
+}
+
+.content {
+    min-width: 600px;
+    max-width: 1100px;
+    margin: 0px auto 0px auto;
+}
