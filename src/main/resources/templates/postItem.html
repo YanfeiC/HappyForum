@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+
+<body>
+
+<div  th:fragment="copy">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tbody>
+        <tr>
+            <td width="auto" valign="middle"><span class="item_title"><a href="@{'/t/'+${post.id}}"
+                                                                         th:text="${post.title}">title</a></span>
+                <div class="sep5"></div>
+                <span class="small fade"><div class="votes"></div><a class="node"
+                                                                     th:href="@{'/go/'+${post.topic.name}}"
+                                                                     th:text="${post.topic.name}">topic</a> &nbsp;•&nbsp;
+                                    <strong><a th:href="@{'/member/'+${post.editor.username}}" th:text="${post.editor.username}">username</a></strong> &nbsp;•&nbsp;
+                                    <span class="small fade"
+                                          th:text="${#dates.format(post.lastReplyTime,'yyyy-MM-dd')}"></span>
+                                </span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                <a th:href="@{'/t/'+${post.id}}" class="count_livid" th:text="${post.replyCount}"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+
+</html>

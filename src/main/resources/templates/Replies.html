@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <link rel="stylesheet" type="text/css" media="screen" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div id="Top" th:include="Top :: copy"></div>
+<div id="Wrapper">
+    <div class="content">
+        <div id="Leftbar"></div>
+        <div id="Rightbar">
+            <div class="sep20"></div>
+            <div class="box" th:include="memberBox::copy"></div>
+            <div class="sep20"></div>
+            <div class="sep20"></div>
+        </div>
+        <div id="Main">
+            <div class="sep20"></div>
+            <div class="box">
+                <div class="header"><a href="/">happy</a>
+                    <span class="chevron">&nbsp;›&nbsp;</span>
+                    <a th:href="@{'/member/'+${user.username}}">username</a>
+                    <span class="chevron">&nbsp;›&nbsp;</span>
+                    <span th:text="'全部回复第 '+${currentpage}+' 页 / 共 '+${replypage.getTotalPages()}+' 页'"></span>
+                    <div class="fr f12"><span class="snow">回复总数&nbsp;</span> <strong class="gray"
+                                                                                     th:text="${replypage.getTotalElements()}"></strong>
+                    </div>
+                </div>
+                <div class="cell" th:if="${replypage.getTotalPages()>1}">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="92%" align="left">
+                                <a
+                                        th:each="page:${#numbers.sequence(1,replypage.getTotalPages())}"
+                                        th:href="'?p='+${page}"
+                                        th:classappend="${page==currentpage} ? page_current : page_normal"
+                                        th:text="${page}">num</a> &nbsp;
+
+                                <input type="number" class="page_input" autocomplete="off" value="1" min="1" max="9"
+                                       onkeydown="if (event.keyCode == 13)
+                    location.href = '?p=' + this.value"/></td>
+                            <td width="8%" align="right">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <style type="text/css">
+                                        .disable_now {
+                                            color: #ccc !important;
+                                            background-color: #fff !important;
+                                        }
+
+                                        .hover_now {
+                                            cursor: pointer;
+                                            color: #333 !important;
+                                            background-color: #f9f9f9 !important;
+                                            text-shadow: 0px 1px 0px #fff !important;
+                                        }
+
+                                        .active_now {
+                                            background-color: #e2e2e2 !important;
+                                        }
+                                    </style>
+                                    <tbody>
+                                    <tr>
+                                        <td width="50%" align="center" class="super normal button disable_now"
+                                            style="border-right: none; border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+                                            ❮
+                                        </td>
+                                        <td width="50%" align="center" class="super normal_page_right button"
+                                            style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;"
+                                            onclick="location.href='?p=2';" onmouseover="$(this).addClass('hover_now');"
+                                            onmousedown="$(this).addClass('active_now');"
+                                            onmouseleave="$(this).removeClass('hover_now'); $(this).removeClass('active_now');"
+                                            title="下一页">❯
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div th:include="replyItem::copy" th:each="reply:${replypage.getContent()}"></div>
+                <div class="cell" th:if="${replypage.getTotalPages()>1}">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="92%" align="left">
+                                <a
+                                        th:each="page:${#numbers.sequence(1,replypage.getTotalPages())}"
+                                        th:href="'?p='+${page}"
+                                        th:classappend="${page==currentpage} ? page_current : page_normal"
+                                        th:text="${page}">num</a> &nbsp;
+
+                                <input type="number" class="page_input" autocomplete="off" value="1" min="1" max="9"
+                                       onkeydown="if (event.keyCode == 13)
+                    location.href = '?p=' + this.value"/></td>
+                            <td width="8%" align="right">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <style type="text/css">
+                                        .disable_now {
+                                            color: #ccc !important;
+                                            background-color: #fff !important;
+                                        }
+
+                                        .hover_now {
+                                            cursor: pointer;
+                                            color: #333 !important;
+                                            background-color: #f9f9f9 !important;
+                                            text-shadow: 0px 1px 0px #fff !important;
+                                        }
+
+                                        .active_now {
+                                            background-color: #e2e2e2 !important;
+                                        }
+                                    </style>
+                                    <tbody>
+                                    <tr>
+                                        <td width="50%" align="center" class="super normal button disable_now"
+                                            style="border-right: none; border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+                                            ❮
+                                        </td>
+                                        <td width="50%" align="center" class="super normal_page_right button"
+                                            style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;"
+                                            onclick="location.href='?p=2';" onmouseover="$(this).addClass('hover_now');"
+                                            onmousedown="$(this).addClass('active_now');"
+                                            onmouseleave="$(this).removeClass('hover_now'); $(this).removeClass('active_now');"
+                                            title="下一页">❯
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="c"></div>
+    <div class="sep20"></div>
+</div>
+<div id="Bottom" th:include="Bottom :: copy"></div>
+</body>
+</html>

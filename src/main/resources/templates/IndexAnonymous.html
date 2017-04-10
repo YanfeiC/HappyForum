@@ -1,14 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<div id ="Top" th:include="Top :: copy"></div>
+<div id="Top" th:include="Top :: copy"></div>
 <div id="Wrapper">
     <div class="content">
         <div id="Leftbar"></div>
-        <div id="Rightbar" th:include="Index_Rightbar :: copy"></div>
+        <div id="Rightbar">
+            <div class="sep20"></div>
+            <div class="box">
+                <div class="cell">
+                    <strong>V2EX = way to explore</strong>
+                    <div class="sep5"></div>
+                    <span class="fade">V2EX 是一个关于分享和探索的地方</span>
+                </div>
+                <div class="inner">
+                    <div class="sep5"></div>
+                    <div align="center"><a th:href="@{/signup}" class="super normal button">现在注册</a>
+                        <div class="sep5"></div>
+                        <div class="sep10"></div>
+                        已注册用户请 &nbsp;<a href="https://www.v2ex.com/signin">登录</a></div>
+                </div>
+            </div>
+        </div>
+
         <div id="Main">
             <div class="sep20"></div>
             <div class="box">
@@ -36,190 +53,26 @@
                         href="https://www.v2ex.com/go/nodejs">node.js</a> &nbsp; &nbsp; <a
                         href="https://www.v2ex.com/go/cloud">云计算</a> &nbsp; &nbsp; <a href="https://www.v2ex.com/go/bb">宽带症候群</a>
                 </div>
-                <div class="cell item" style="">
-                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
+
+                <div class="cell item" style="" th:each="post:${postpage.getContent()}">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tbody>
                         <tr>
-
-                            <td valign="top" align="center" width="48"><a href="https://www.v2ex.com/member/n7then"><img
-                                    th:src="@{/img/211483_normal.png}" class="avatar" align="default" border="0"/></a>
-                            </td>
+                            <td width="48" valign="top" align="center"><a th:href="@{'/member/'+${post.editor.username}}"><img th:src="@{'/img/avatar/'+${post.editor.avatar}}" class="avatar" border="0" align="default"/></a></td>
                             <td width="10"></td>
-
-                            <td valign="middle" width="auto"><span class="item_title"><a
-                                    href="https://www.v2ex.com/t/346522#reply17">为什么没有学习闽南语的 App..</a></span>
+                            <td width="auto" valign="middle"><span class="item_title"><a href="@{'/t/'+${post.id}}"
+                                                                                         th:text="${post.title}">title</a></span>
                                 <div class="sep5"></div>
                                 <span class="small fade"><div class="votes"></div><a class="node"
-                                                                                     href="https://www.v2ex.com/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a
-                                        href="https://www.v2ex.com/member/n7then">n7then</a></strong> &nbsp;•&nbsp; 1 分钟前 &nbsp;•&nbsp; 最后回复来自 <strong><a
-                                        href="https://www.v2ex.com/member/line">line</a></strong></span>
+                                                                                     th:href="@{'/go/'+${post.topic.name}}"
+                                                                                     th:text="${post.topic.name}">topic</a> &nbsp;•&nbsp;
+                                    <strong><a th:href="@{'/member/'+${post.editor.username}}" th:text="${post.editor.username}">username</a></strong> &nbsp;•&nbsp;
+                                    <span class="small fade"
+                                          th:text="${#dates.format(post.lastReplyTime,'yyyy-MM-dd')}"></span>
+                                </span>
                             </td>
-                            <td valign="middle" align="right" width="70">
-
-                                <a href="https://www.v2ex.com/t/346522#reply17" class="count_livid">17</a>
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="cell item" style="">
-                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                        <tbody>
-                        <tr>
-
-                            <td valign="top" align="center" width="48"><a href="https://www.v2ex.com/member/n7then"><img
-                                    th:src="@{/img/211483_normal.png}" class="avatar" align="default" border="0"/></a>
-                            </td>
-                            <td width="10"></td>
-
-                            <td valign="middle" width="auto"><span class="item_title"><a
-                                    href="https://www.v2ex.com/t/346522#reply17">为什么没有学习闽南语的 App..</a></span>
-                                <div class="sep5"></div>
-                                <span class="small fade"><div class="votes"></div><a class="node"
-                                                                                     href="https://www.v2ex.com/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a
-                                        href="https://www.v2ex.com/member/n7then">n7then</a></strong> &nbsp;•&nbsp; 1 分钟前 &nbsp;•&nbsp; 最后回复来自 <strong><a
-                                        href="https://www.v2ex.com/member/line">line</a></strong></span>
-                            </td>
-                            <td valign="middle" align="right" width="70">
-
-                                <a href="https://www.v2ex.com/t/346522#reply17" class="count_livid">17</a>
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="cell item" style="">
-                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                        <tbody>
-                        <tr>
-
-                            <td valign="top" align="center" width="48"><a href="https://www.v2ex.com/member/n7then"><img
-                                    th:src="@{/img/211483_normal.png}" class="avatar" align="default" border="0"/></a>
-                            </td>
-                            <td width="10"></td>
-
-                            <td valign="middle" width="auto"><span class="item_title"><a
-                                    href="https://www.v2ex.com/t/346522#reply17">为什么没有学习闽南语的 App..</a></span>
-                                <div class="sep5"></div>
-                                <span class="small fade"><div class="votes"></div><a class="node"
-                                                                                     href="https://www.v2ex.com/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a
-                                        href="https://www.v2ex.com/member/n7then">n7then</a></strong> &nbsp;•&nbsp; 1 分钟前 &nbsp;•&nbsp; 最后回复来自 <strong><a
-                                        href="https://www.v2ex.com/member/line">line</a></strong></span>
-                            </td>
-                            <td valign="middle" align="right" width="70">
-
-                                <a href="https://www.v2ex.com/t/346522#reply17" class="count_livid">17</a>
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="cell item" style="">
-                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                        <tbody>
-                        <tr>
-
-                            <td valign="top" align="center" width="48"><a href="https://www.v2ex.com/member/n7then"><img
-                                    th:src="@{/img/211483_normal.png}" class="avatar" align="default" border="0"/></a>
-                            </td>
-                            <td width="10"></td>
-
-                            <td valign="middle" width="auto"><span class="item_title"><a
-                                    href="https://www.v2ex.com/t/346522#reply17">为什么没有学习闽南语的 App..</a></span>
-                                <div class="sep5"></div>
-                                <span class="small fade"><div class="votes"></div><a class="node"
-                                                                                     href="https://www.v2ex.com/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a
-                                        href="https://www.v2ex.com/member/n7then">n7then</a></strong> &nbsp;•&nbsp; 1 分钟前 &nbsp;•&nbsp; 最后回复来自 <strong><a
-                                        href="https://www.v2ex.com/member/line">line</a></strong></span>
-                            </td>
-                            <td valign="middle" align="right" width="70">
-
-                                <a href="https://www.v2ex.com/t/346522#reply17" class="count_livid">17</a>
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="cell item" style="">
-                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                        <tbody>
-                        <tr>
-
-                            <td valign="top" align="center" width="48"><a href="https://www.v2ex.com/member/n7then"><img
-                                    th:src="@{/img/211483_normal.png}" class="avatar" align="default" border="0"/></a>
-                            </td>
-                            <td width="10"></td>
-
-                            <td valign="middle" width="auto"><span class="item_title"><a
-                                    href="https://www.v2ex.com/t/346522#reply17">为什么没有学习闽南语的 App..</a></span>
-                                <div class="sep5"></div>
-                                <span class="small fade"><div class="votes"></div><a class="node"
-                                                                                     href="https://www.v2ex.com/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a
-                                        href="https://www.v2ex.com/member/n7then">n7then</a></strong> &nbsp;•&nbsp; 1 分钟前 &nbsp;•&nbsp; 最后回复来自 <strong><a
-                                        href="https://www.v2ex.com/member/line">line</a></strong></span>
-                            </td>
-                            <td valign="middle" align="right" width="70">
-
-                                <a href="https://www.v2ex.com/t/346522#reply17" class="count_livid">17</a>
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="cell item" style="">
-                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                        <tbody>
-                        <tr>
-
-                            <td valign="top" align="center" width="48"><a href="https://www.v2ex.com/member/n7then"><img
-                                    th:src="@{/img/211483_normal.png}" class="avatar" align="default" border="0"/></a>
-                            </td>
-                            <td width="10"></td>
-
-                            <td valign="middle" width="auto"><span class="item_title"><a
-                                    href="https://www.v2ex.com/t/346522#reply17">为什么没有学习闽南语的 App..</a></span>
-                                <div class="sep5"></div>
-                                <span class="small fade"><div class="votes"></div><a class="node"
-                                                                                     href="https://www.v2ex.com/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a
-                                        href="https://www.v2ex.com/member/n7then">n7then</a></strong> &nbsp;•&nbsp; 1 分钟前 &nbsp;•&nbsp; 最后回复来自 <strong><a
-                                        href="https://www.v2ex.com/member/line">line</a></strong></span>
-                            </td>
-                            <td valign="middle" align="right" width="70">
-
-                                <a href="https://www.v2ex.com/t/346522#reply17" class="count_livid">17</a>
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="cell item" style="">
-                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                        <tbody>
-                        <tr>
-
-                            <td valign="top" align="center" width="48"><a href="https://www.v2ex.com/member/n7then"><img
-                                    th:src="@{/img/211483_normal.png}" class="avatar" align="default" border="0"/></a>
-                            </td>
-                            <td width="10"></td>
-
-                            <td valign="middle" width="auto"><span class="item_title"><a
-                                    href="https://www.v2ex.com/t/346522#reply17">为什么没有学习闽南语的 App..</a></span>
-                                <div class="sep5"></div>
-                                <span class="small fade"><div class="votes"></div><a class="node"
-                                                                                     href="https://www.v2ex.com/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a
-                                        href="https://www.v2ex.com/member/n7then">n7then</a></strong> &nbsp;•&nbsp; 1 分钟前 &nbsp;•&nbsp; 最后回复来自 <strong><a
-                                        href="https://www.v2ex.com/member/line">line</a></strong></span>
-                            </td>
-                            <td valign="middle" align="right" width="70">
-
-                                <a href="https://www.v2ex.com/t/346522#reply17" class="count_livid">17</a>
-
+                            <td width="70" align="right" valign="middle">
+                                <a th:href="@{'/t/'+${post.id}}" class="count_livid" th:text="${post.replyCount}"></a>
                             </td>
                         </tr>
                         </tbody>

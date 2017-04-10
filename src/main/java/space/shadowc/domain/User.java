@@ -16,23 +16,12 @@ import java.util.List;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "users")
 public class User extends BaseDomain {
-    /**
-     * 用户锁定的状态值
-     */
-    public static final int ABLE = 1;
-
-    /**
-     * 用户正常的状态值
-     */
-    public static final int UNABLE = 0;
-
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "username")
-    private String userName;
+    @Column(name = "username",nullable = false)
+    private String username;
 
-    private int enabled = ABLE;
+    private Boolean enabled = false;
 
     private String email;
 
@@ -47,9 +36,9 @@ public class User extends BaseDomain {
     @Column(name = "last_visit")
     private Date lastVisit;
 
-    private String credit;
+    private int credit;
 
-    private String passWord;
+    private String password;
 
     @OneToMany(mappedBy = "editor", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
@@ -57,19 +46,19 @@ public class User extends BaseDomain {
     @OneToMany(mappedBy = "editor", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<Reply> replies = new ArrayList<>();
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public int getEnabled() {
+    public Boolean getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(int enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -105,12 +94,12 @@ public class User extends BaseDomain {
         this.desc = desc;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getLastVisit() {
@@ -121,11 +110,11 @@ public class User extends BaseDomain {
         this.lastVisit = lastVisit;
     }
 
-    public String getCredit() {
+    public int getCredit() {
         return credit;
     }
 
-    public void setCredit(String credit) {
+    public void setCredit(int credit) {
         this.credit = credit;
     }
 
@@ -144,5 +133,6 @@ public class User extends BaseDomain {
     public void setReplies(List<Reply> replies) {
         this.replies = replies;
     }
+
 }
 

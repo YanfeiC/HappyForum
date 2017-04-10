@@ -53,59 +53,15 @@
                 <div class="cell_tabs">
                     <div class="fl"><img th:src="@{'/img/avatar/'+${user.avatar}}" width="24"
                                          style="border-radius: 24px; margin-top: -2px;" border="0"/></div>
-                    <a th:href="@{'/member/'+${user.username}}" class="cell_tab_current">cy18 创建的所有主题</a></div>
-                <div class="cell item" style="" th:each="post:${postpage.getContent()}">
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                        <tbody>
-                        <tr>
-                            <td width="auto" valign="middle">
-                                <span class="item_title">
-                                    <a th:href="@{'/t/'+${post.id}}" th:text="${post.title}">title</a>
-                                </span>
-                                <div class="sep5"></div>
-                                <span class="small fade">
-                                    <div class="votes"></div>
-                                    <a class="node" th:href="@{'/go/'+${post.topic.name}}" th:text="${post.topic.name}">topic name</a> &nbsp;•&nbsp;
-                                    <strong><a th:href="@{'/member/'+${user.username}}" th:text="${user.username}">username</a></strong> •&nbsp; <span
-                                        th:text="${#dates.format(post.lastReplyTime,'yyyy/MM/dd HH:mm')}"></span>
-                                    </span>
-                            </td>
-                            <td width="70" align="right" valign="middle">
-                                <a th:href="@{'/t/'+${post.id}}" class="count_livid" th:text="${post.replyCount}">replyCount</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    <a th:href="@{'/member/'+${user.username}}" class="cell_tab_current" th:text="${user.username}+' 创建的所有主题'"></a></div>
+                <div class="cell item" style="" th:each="post:${postpage.getContent()}" th:include="postItem::copy"></div>
                 <div class="inner"><span class="chevron">»</span> <a th:href="@{'/member/'+${user.username}+'/posts'}"><span
                         th:text="${user.username}+'&nbsp;创建的更多主题(待完成)'"></span></a></div>
             </div>
             <div class="sep20"></div>
             <div class="box">
                 <div class="cell"><span class="gray" th:text="${user.username}+' 最近回复了'">user最近回复了</span></div>
-                <div th:each="reply:${replypage.getContent()}">
-                    <div class="dock_area">
-                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                            <tbody>
-                            <tr>
-                                <td style="padding: 10px 15px 8px 15px; font-size: 12px; text-align: left;">
-                                    <div class="fr"><span class="fade" th:text="${reply.modifyTime}">回复时间</span></div>
-                                    <span class="gray">回复了 <a th:href="@{'/member/'+${reply.post.editor.username}}" th:text="${reply.post.editor.username}">帖子作者</a> 创建的主题 <span
-                                            class="chevron">›</span> <a th:href="@{'/go/'+ ${reply.post.topic.name} }" th:text="${reply.post.topic.name}">帖子主题</a> <span
-                                            class="chevron">›</span> <a
-                                            th:href="@{'/t/'+${reply.post.id}}" th:text="${reply.post.title}">帖子标题</a></span></td>
-                            </tr>
-                            <tr>
-                                <td align="left"><img style="margin-left: 20px; vertical-align:text-bottom;"
-                                                      th:src="@{/img/arrow.png}"/></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="inner" th:classappend="${replypage.getContent().indexOf(reply) == (replypage.getContent().size() -1)} ? 'cell':'inner'">
-                        <div class="reply_content" th:text="${reply.content}"></div>
-                    </div>
-                </div>
+                <div th:include="replyItem::copy" th:each="reply:${replypage.getContent()}"></div>
                 <div class="inner">
                     <span class="chevron">»</span>
                     <a  th:href="@{'/member/'+${user.username}+'/replies'}" th:text="${user.username}+'  创建的更多回复'">username 创建的更多回复</a>

@@ -1,11 +1,13 @@
 CREATE TABLE users (
   username    VARCHAR(50)  NOT NULL PRIMARY KEY,
-  password    VARCHAR(50)  NOT NULL,
+  password    VARCHAR(255) NOT NULL,
   enabled     BOOLEAN      NOT NULL,
   email       VARCHAR(255),
   join_time   DATETIME     NOT NULL,
   avatar      VARCHAR(255) NOT NULL,
-  description VARCHAR(255)
+  description VARCHAR(255),
+  last_visit  DATETIME,
+  credit      INT(11)      NOT NULL
 )
   ENGINE = InnoDb;
 
@@ -17,14 +19,15 @@ CREATE TABLE topics (
   ENGINE = InnoDb;
 
 CREATE TABLE posts (
-  id          INT(11)      NOT NULL PRIMARY KEY,
-  title       VARCHAR(255) NOT NULL,
-  content     TEXT,
-  editor     VARCHAR(50)     NOT NULL,
-  modify_time DATETIME,
-  reply_count INT(11),
-  page_view   INT(11),
-  topic_id    INT(11)  NOT NULL,
+  id              INT(11)      NOT NULL PRIMARY KEY,
+  title           VARCHAR(255) NOT NULL,
+  content         TEXT,
+  editor          VARCHAR(50)  NOT NULL,
+  modify_time     DATETIME,
+  reply_count     INT(11),
+  page_view       INT(11),
+  topic_id        INT(11)      NOT NULL,
+  last_reply_time DATETIME,
   FOREIGN KEY (editor) REFERENCES users (username),
   FOREIGN KEY (topic_id) REFERENCES topics (id)
 )
@@ -34,11 +37,8 @@ CREATE TABLE replies (
   id          INT(11)     NOT NULL PRIMARY KEY,
   post_id     INT(11),
   content     TEXT,
-  editor      VARCHAR(50)     NOT NULL,
+  editor      VARCHAR(50) NOT NULL,
   modify_time DATETIME,
-  reply_count INT(11),
-  page_view   INT(11),
-  topic_id    VARCHAR(50) NOT NULL,
   FOREIGN KEY (editor) REFERENCES users (username),
   FOREIGN KEY (post_id) REFERENCES posts (id)
 )
@@ -52,9 +52,9 @@ CREATE TABLE tags (
   ENGINE = InnoDb;
 
 CREATE TABLE tag_manager (
-  user_id VARCHAR(50) NOT NULL,
+  post_id INT(11) NOT NULL,
   tag_id  INT(11) NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users (username),
+  FOREIGN KEY (post_id) REFERENCES posts (id),
   FOREIGN KEY (tag_id) REFERENCES tags (id)
 )
   ENGINE = InnoDb;
