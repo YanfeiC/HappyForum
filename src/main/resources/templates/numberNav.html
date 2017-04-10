@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+
+<body>
+
+<div class="cell" th:fragment="copy">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tbody>
+        <tr>
+            <td width="92%" align="left">
+                <a th:each="page:${#numbers.sequence(1,pageNum)}"
+                   th:href="'?p='+${page}"
+                   th:classappend="${page == currentpage} ? page_current:page_normal"
+                   th:text="${page}"></a>
+                <input type="number" class="page_input" autocomplete="off" value="1" min="1" max="8"
+                       onkeydown="if (event.keyCode == 13) location.href = '?p=' + this.value"/></td>
+            <td width="8%" align="right">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <style type="text/css">
+                        .disable_now {
+                            color: #ccc !important;
+                            background-color: #fff !important;
+                        }
+
+                        .hover_now {
+                            cursor: pointer;
+                            color: #333 !important;
+                            background-color: #f9f9f9 !important;
+                            text-shadow: 0px 1px 0px #fff !important;
+                        }
+
+                        .active_now {
+                            background-color: #e2e2e2 !important;
+                        }
+                    </style>
+                    <tbody>
+                    <tr>
+                        <td width="50%" align="center" class="super normal button disable_now"
+                            style="border-right: none; border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
+                            ❮
+                        </td>
+                        <td width="50%" align="center" class="super normal_page_right button"
+                            style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;"
+                            onclick="location.href='?p=2';" onmouseover="$(this).addClass('hover_now');"
+                            onmousedown="$(this).addClass('active_now');"
+                            onmouseleave="$(this).removeClass('hover_now'); $(this).removeClass('active_now');"
+                            title="下一页">❯
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>

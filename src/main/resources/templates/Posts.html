@@ -24,117 +24,16 @@
                                                                                      th:text="${postpage.getTotalElements()}">数量</strong>
                     </div>
                 </div>
-                <div class="cell" th:if="${postpage.getTotalPages()}>1">
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                        <tbody>
-                        <tr>
-                            <td width="92%" align="left">
-                                <a th:each="page:${#numbers.sequence(1,postpage.getTotalPages())}"
-                                   th:href="'?p='+${page}"
-                                   th:classappend="${page == currentpage} ? page_current:page_normal"
-                                   th:text="${page}"></a>
-                                <input type="number" class="page_input" autocomplete="off" value="1" min="1" max="8"
-                                       onkeydown="if (event.keyCode == 13) location.href = '?p=' + this.value"/></td>
-                            <td width="8%" align="right">
-                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                    <style type="text/css">
-                                        .disable_now {
-                                            color: #ccc !important;
-                                            background-color: #fff !important;
-                                        }
 
-                                        .hover_now {
-                                            cursor: pointer;
-                                            color: #333 !important;
-                                            background-color: #f9f9f9 !important;
-                                            text-shadow: 0px 1px 0px #fff !important;
-                                        }
-
-                                        .active_now {
-                                            background-color: #e2e2e2 !important;
-                                        }
-                                    </style>
-                                    <tbody>
-                                    <tr>
-                                        <td width="50%" align="center" class="super normal button disable_now"
-                                            style="border-right: none; border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
-                                            ❮
-                                        </td>
-                                        <td width="50%" align="center" class="super normal_page_right button"
-                                            style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;"
-                                            onclick="location.href='?p=2';" onmouseover="$(this).addClass('hover_now');"
-                                            onmousedown="$(this).addClass('active_now');"
-                                            onmouseleave="$(this).removeClass('hover_now'); $(this).removeClass('active_now');"
-                                            title="下一页">❯
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <div class="cell"
+                     th:with="pageNum=${postpage.getTotalPages()}"
+                     th:if="${postpage.getTotalPages()>1}"
+                     th:include="numberNav::copy"></div>
                 <div class="cell item" style="" th:each="post:${postpage.getContent()}" th:include="postItem::copy"></div>
-                <div class="cell" th:if="${postpage.getTotalPages()}>1">
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                        <tbody>
-                        <tr>
-                            <td width="92%" align="left">
-                                <a th:each="page:${#numbers.sequence(1,postpage.getTotalPages())}"
-                                   th:href="'?p='+${page}"
-                                   th:classappend="${page == currentpage} ? page_current:page_normal"
-                                   th:text="${page}"></a>
-                                <!--<a href="?p=1" class="page_current">1</a>&nbsp;-->
-                                <!--<a href="?p=2" class="page_normal">2</a>&nbsp;-->
-                                <!--<a href="?p=3" class="page_normal">3</a>&nbsp;-->
-                                <!--<a href="?p=4" class="page_normal">4</a>&nbsp;-->
-                                <!--<a href="?p=5" class="page_normal">5</a>&nbsp;-->
-                                <!--<a href="?p=6" class="page_normal">6</a>&nbsp;-->
-                                <!--<a href="?p=7" class="page_normal">7</a>&nbsp;-->
-                                <!--<a href="?p=8" class="page_normal">8</a>&nbsp;-->
-                                <input type="number" class="page_input" autocomplete="off" value="1" min="1" max="8"
-                                       onkeydown="if (event.keyCode == 13) location.href = '?p=' + this.value"/></td>
-                            <td width="8%" align="right">
-                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                    <style type="text/css">
-                                        .disable_now {
-                                            color: #ccc !important;
-                                            background-color: #fff !important;
-                                        }
-
-                                        .hover_now {
-                                            cursor: pointer;
-                                            color: #333 !important;
-                                            background-color: #f9f9f9 !important;
-                                            text-shadow: 0px 1px 0px #fff !important;
-                                        }
-
-                                        .active_now {
-                                            background-color: #e2e2e2 !important;
-                                        }
-                                    </style>
-                                    <tbody>
-                                    <tr>
-                                        <td width="50%" align="center" class="super normal button disable_now"
-                                            style="border-right: none; border-top-right-radius: 0px; border-bottom-right-radius: 0px;">
-                                            ❮
-                                        </td>
-                                        <td width="50%" align="center" class="super normal_page_right button"
-                                            style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;"
-                                            onclick="location.href='?p=2';" onmouseover="$(this).addClass('hover_now');"
-                                            onmousedown="$(this).addClass('active_now');"
-                                            onmouseleave="$(this).removeClass('hover_now'); $(this).removeClass('active_now');"
-                                            title="下一页">❯
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <div class="cell"
+                     th:with="pageNum=${postpage.getTotalPages()}"
+                     th:if="${postpage.getTotalPages()>1}"
+                     th:include="numberNav::copy"></div>
             </div>
 
         </div>
