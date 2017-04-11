@@ -35,7 +35,7 @@ public class Forum {
         if (user != null) {
             model.addAttribute("user", user);
         }
-        return "IndexAuthenticated";
+        return "Index";
 
     }
 
