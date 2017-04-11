@@ -29,13 +29,10 @@ public class Forum {
     public String showIndex(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        System.out.println(username);
         User user = userService.findByUsername(username);
         Page<Post> postpage = postService.findAll(10,1);
-        System.out.println(user == null);
         model.addAttribute("postpage",postpage);
         if (user == null) {
-
             return "IndexAnonymous";
         }
         model.addAttribute("user", user);
