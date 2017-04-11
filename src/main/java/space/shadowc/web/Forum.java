@@ -30,12 +30,11 @@ public class Forum {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         User user = userService.findByUsername(username);
-        Page<Post> postpage = postService.findAll(10,1);
-        model.addAttribute("postpage",postpage);
-        if (user == null) {
-            return "IndexAnonymous";
+        Page<Post> postpage = postService.findAll(10, 1);
+        model.addAttribute("postpage", postpage);
+        if (user != null) {
+            model.addAttribute("user", user);
         }
-        model.addAttribute("user", user);
         return "IndexAuthenticated";
 
     }
