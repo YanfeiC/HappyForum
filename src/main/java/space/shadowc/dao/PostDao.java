@@ -15,6 +15,8 @@ public interface PostDao extends JpaRepository<Post, Integer> {
 
    Page<Post> findByEditor(User editor, Pageable pageable);
 
+   Post findById(int id);
+
    Page<Post> findAll(Pageable pageable);
 
 }

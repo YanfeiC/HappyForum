@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "posts")
 public class Post extends BaseDomain {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
@@ -27,17 +27,23 @@ public class Post extends BaseDomain {
     @Column(name = "last_reply_time")
     private Date lastReplyTime;
 
+    @Column(name = "create_time")
+    private Date createTime;
+
     @Column(name = "modify_time")
     private Date modifyTime;
 
     @Column(name = "reply_count")
     private int replyCount;
 
+    @Column(name="vote_count")
+    private int voteCount;
+
     @Column(name = "page_view")
     private int pageView;
 
-    @ManyToOne
-    @JoinColumn(name = "topic_id")
+    @ManyToOne(fetch=FetchType.LAZY, cascade={ CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "topic_id",nullable = false)
     private Topic topic;
 
     @ManyToOne
@@ -135,6 +141,22 @@ public class Post extends BaseDomain {
 
     public Date getLastReplyTime() {
         return lastReplyTime;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public int getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
     }
 
     public void setLastReplyTime(Date lastReplyTime) {

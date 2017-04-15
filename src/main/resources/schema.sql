@@ -12,18 +12,20 @@ CREATE TABLE users (
   ENGINE = InnoDb;
 
 CREATE TABLE topics (
-  id          INT(11)     NOT NULL PRIMARY KEY,
+  id          INT(11)     NOT NULL PRIMARY KEY AUTO_INCREMENT,
   name        VARCHAR(50) NOT NULL,
   description VARCHAR(255)
 )
   ENGINE = InnoDb;
 
 CREATE TABLE posts (
-  id              INT(11)      NOT NULL PRIMARY KEY,
+  id              INT(11)      NOT NULL PRIMARY KEY AUTO_INCREMENT,
   title           VARCHAR(255) NOT NULL,
   content         TEXT,
   editor          VARCHAR(50)  NOT NULL,
+  create_time      DATETIME,
   modify_time     DATETIME,
+  vote_count        INT(11),
   reply_count     INT(11),
   page_view       INT(11),
   topic_id        INT(11)      NOT NULL,
@@ -34,7 +36,7 @@ CREATE TABLE posts (
   ENGINE = InnoDb;
 
 CREATE TABLE replies (
-  id          INT(11)     NOT NULL PRIMARY KEY,
+  id          INT(11)     NOT NULL PRIMARY KEY AUTO_INCREMENT,
   post_id     INT(11),
   content     TEXT,
   editor      VARCHAR(50) NOT NULL,

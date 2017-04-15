@@ -23,18 +23,27 @@ public class PostService {
     public Page<Post> findByEditor(User user, int pageSize, Integer pageNumber) {
         Pageable pageable = new PageRequest(
                 pageNumber - 1, pageSize, new Sort(
-                new Sort.Order(Sort.Direction.ASC, "lastReplyTime")
+                new Sort.Order(Sort.Direction.DESC, "lastReplyTime")
         )
         );
         return postDao.findByEditor(user, pageable);
     }
 
+    public Post findById(int id){
+
+        return postDao.findById(id);
+    }
+
     public Page<Post> findAll(int pageSize,Integer pageNumber){
         Pageable pageable = new PageRequest(
                 pageNumber-1,pageSize,new Sort(
-                        new Sort.Order(Sort.Direction.ASC,"lastReplyTime")
+                        new Sort.Order(Sort.Direction.DESC,"lastReplyTime")
         )
         );
         return postDao.findAll(pageable);
+    }
+
+    public void save(Post post){
+        postDao.save(post);
     }
 }

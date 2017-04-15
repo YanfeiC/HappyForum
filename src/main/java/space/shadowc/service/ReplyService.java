@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import space.shadowc.dao.ReplyDao;
+import space.shadowc.domain.Post;
 import space.shadowc.domain.Reply;
 import space.shadowc.domain.User;
 
@@ -23,9 +24,22 @@ public class ReplyService {
     public Page<Reply> findByEditor(User user, int pageSize, Integer pageNumber) {
         Pageable pageable = new PageRequest(
                 pageNumber - 1, pageSize, new Sort(
-                new Sort.Order(Sort.Direction.ASC, "modifyTime")
+                new Sort.Order(Sort.Direction.DESC, "modifyTime")
         )
         );
         return replyDao.findByEditor(user, pageable);
+    }
+
+    public Page<Reply> findByPost(Post post,int pageSize,Integer pageNumber){
+        Pageable pageable = new PageRequest(
+                pageNumber -1 ,pageSize,new Sort(
+                        new Sort.Order(Sort.Direction.ASC,"modifyTime")
+        )
+        );
+        return replyDao.findByPost(post,pageable);
+    }
+
+    public void save(Reply reply){
+        replyDao.save(reply);
     }
 }
