@@ -33,7 +33,7 @@ public class ReplyService {
     public Page<Reply> findByPost(Post post,int pageSize,Integer pageNumber){
         Pageable pageable = new PageRequest(
                 pageNumber -1 ,pageSize,new Sort(
-                        new Sort.Order(Sort.Direction.ASC,"modifyTime")
+                        new Sort.Order(Sort.Direction.DESC,"modifyTime")
         )
         );
         return replyDao.findByPost(post,pageable);

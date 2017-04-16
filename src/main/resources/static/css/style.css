@@ -17,7 +17,10 @@ a:link, a:visited, a:active {
     text-decoration: none;
     word-break: break-all;
 }
-
+a:hover {
+    color: #4d5256;
+    text-decoration: underline;
+}
 #q {
     border: none;
     width: 222px;
@@ -360,4 +363,64 @@ h1 {
 }
 .snow {
     color: #e2e2e2;
+}
+.topic_buttons {
+    padding: 5px;
+    font-size: 14px;
+    line-height: 120%;
+    background: #eeeeee;
+    background: -moz-linear-gradient(top, #eeeeee 0%, #cccccc 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc));
+    background: -webkit-linear-gradient(top, #eeeeee 0%,#cccccc 100%);
+    background: -o-linear-gradient(top, #eeeeee 0%,#cccccc 100%);
+    background: -ms-linear-gradient(top, #eeeeee 0%,#cccccc 100%);
+    background: linear-gradient(to bottom, #eeeeee 0%,#cccccc 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 );
+    border-radius: 0px 0px 3px 3px;
+    text-align: left;
+}
+.f11 {
+    font-size: 11px;
+}
+a.tb:link, a.tb:visited, a.tb:active {
+    font-size: 11px;
+    line-height: 12px;
+    color: #333;
+    text-decoration: none;
+    display: inline-block;
+    padding: 3px 10px 3px 10px;
+    border-radius: 15px;
+    text-shadow: 0px 1px 0px #fff;
+}
+.fa-tag:before {
+    content: "\f02b";
+}
+.tag>li {
+    opacity: .15;
+}
+.tag:link, .tag:visited {
+    padding: 5px 10px 5px 10px;
+    line-height: 100%;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    margin: 0px 5px 0px 5px;
+    display: inline-block;
+}
+.tag:hover {
+    background-color: #99a;
+    color: #fff;
+    text-decoration: none;
+}
+.no {
+    font-size: 9px;
+    line-height: 9px;
+    font-weight: 500;
+    border-radius: 10px;
+    display: inline-block;
+    background-color: #f0f0f0;
+    color: #ccc;
+    padding: 2px 5px 2px 5px;
+}
+#Edit{
+    height:200px;
 }

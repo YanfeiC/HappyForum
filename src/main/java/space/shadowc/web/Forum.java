@@ -6,10 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import space.shadowc.domain.Post;
 import space.shadowc.domain.Reply;
 import space.shadowc.domain.Topic;
@@ -17,6 +14,7 @@ import space.shadowc.domain.User;
 import space.shadowc.service.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,13 +61,40 @@ public class Forum {
 
     @GetMapping("/t/{id}")
     public String showPost(@PathVariable("id") int id,
-                           @RequestParam(value = "p", defaultValue = "1") int pagenum,
+                           @RequestParam(value = "p", defaultValue = "1") int pageNum,
                            Model model) {
         Post post = postService.findById(id);
-        Page<Reply> replyPage = replyService.findByPost(post, 100, pagenum);
+        Page<Reply> replyPage = replyService.findByPost(post, 100, pageNum);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        if (username != "anonymousUser") {
+            User user = userService.findByUsername(username);
+            model.addAttribute("user", user);
+        }
+
         model.addAttribute("post", post);
         model.addAttribute("replyPage", replyPage);
+        model.addAttribute("currentpage", pageNum);
         return "t";
+    }
+
+    @PostMapping("/postreply")
+    public String saveReply(String content, int postId) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        if (username != "anonymousUser") {
+            User user = userService.findByUsername(username);
+            Post post = postService.findById(postId);
+            Reply reply = new Reply();
+            reply.setEditor(user);
+            reply.setContent(content);
+            reply.setModifyTime(new Date());
+            reply.setPost(post);
+            replyService.save(reply);
+        }
+        return "redirect:/t/"+postId;
     }
 
     @GetMapping("/initdata")
@@ -77,14 +102,14 @@ public class Forum {
         for (int k = 0; k < 2; k++) {
             List<Topic> topics = new ArrayList<>();
             List<User> users = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 2; i++) {
                 topics.add(initData.initTopic());
                 users.add(initData.initUser());
             }
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 2; i++) {
                 Post post = initData.initPost(users.get(i), topics.get(i));
                 for (User user : users) {
-                    for (int j = 0; j < 2; j++) {
+                    for (int j = 0; j < 200; j++) {
                         Reply reply = initData.initReply(user, post);
                     }
                 }

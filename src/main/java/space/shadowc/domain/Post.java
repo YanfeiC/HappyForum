@@ -2,6 +2,7 @@ package space.shadowc.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class Post extends BaseDomain {
     @Column(name = "modify_time")
     private Date modifyTime;
 
-    @Column(name = "reply_count")
+    @Formula("(select count(*) from replies as r where r.post_id = id)")
     private int replyCount;
 
     @Column(name="vote_count")

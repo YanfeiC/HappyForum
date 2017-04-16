@@ -26,7 +26,6 @@ CREATE TABLE posts (
   create_time      DATETIME,
   modify_time     DATETIME,
   vote_count        INT(11),
-  reply_count     INT(11),
   page_view       INT(11),
   topic_id        INT(11)      NOT NULL,
   last_reply_time DATETIME,
