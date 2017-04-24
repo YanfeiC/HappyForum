@@ -7,12 +7,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import space.shadowc.domain.Post;
 import space.shadowc.domain.Reply;
 import space.shadowc.domain.Topic;
 import space.shadowc.domain.User;
 import space.shadowc.service.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,6 +45,7 @@ public class Forum {
 
     @Autowired
     private InitData initData;
+
 
     @RequestMapping("/")
     public String showIndex(Model model) {
@@ -96,6 +102,23 @@ public class Forum {
         }
         return "redirect:/t/"+postId;
     }
+
+    @PostMapping("/upload")
+    @ResponseBody
+    public String handleFileUpload(@RequestParam("FileName") MultipartFile file) {
+        Path location = Paths.get("/var/www/resources");
+        try {
+            if (file.isEmpty()) {
+                return "error|上传图片失败";
+            }
+            Files.copy(file.getInputStream(), location.resolve(file.getOriginalFilename()));
+        } catch (IOException e) {
+            return "error|上传失败";
+        }
+        return "/resources/"+file.getOriginalFilename();
+    }
+
+
 
     @GetMapping("/initdata")
     public String initdata() {

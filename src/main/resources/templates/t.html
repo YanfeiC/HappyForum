@@ -4,7 +4,6 @@
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/wangEditor.min.css}"/>
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
-    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
 <div id="Top" th:include="Top :: copy"></div>
@@ -161,24 +160,12 @@
 <script type="text/javascript" th:src="@{/js/wangEditor.min.js}"></script>
 <script type="text/javascript">
     var editor = new wangEditor('Edit');
+    var csrfToken = $("meta[name='_csrf'").attr("content");
+    editor.config.uploadHeaders = {'X-CSRF-TOKEN':csrfToken
+    };
+    editor.config.uploadImgFileName = 'FileName';
+    editor.config.uploadImgUrl = '/upload';
     editor.create();
-
-    //Ajax with SpringSecurity CSRF
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    $(document).ajaxSend(function (e, xhr, options) {
-        xhr.setRequestHeader(header, token);
-    });
-
-    $("#button").click(function () {
-        var html = editor.$txt.html();
-
-        $.post(window.location.href + "/postreply", {
-            content: html
-        }, function (data, textStatus) {
-            alert(data);
-        })
-    });
 </script>
 </body>
 </html>
