@@ -1,6 +1,8 @@
 package space.shadowc.web;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,6 +48,8 @@ public class Forum {
     @Autowired
     private InitData initData;
 
+    @Value("${resources.path}")
+    private String resourcesPath;
 
     @RequestMapping("/")
     public String showIndex(Model model) {
@@ -100,25 +104,37 @@ public class Forum {
             reply.setPost(post);
             replyService.save(reply);
         }
-        return "redirect:/t/"+postId;
+        return "redirect:/t/" + postId;
     }
 
     @PostMapping("/upload")
     @ResponseBody
     public String handleFileUpload(@RequestParam("FileName") MultipartFile file) {
-        Path location = Paths.get("/var/www/resources");
-        try {
-            if (file.isEmpty()) {
-                return "error|上传图片失败";
+        DateTime date = DateTime.now();
+        String month = date.toString("MM");
+        String year = date.toString("yyyy");
+        Path location = Paths.get(resourcesPath +  year + "/" + month);
+        if (!Files.exists(location)) {
+            try {
+                Files.createDirectories(location);
+            } catch (IOException e) {
+                return "error|上传失败";
             }
+        }
+
+        try {
+            if (file.isEmpty()) { return "error|上传图片失败";}
             Files.copy(file.getInputStream(), location.resolve(file.getOriginalFilename()));
         } catch (IOException e) {
             return "error|上传失败";
         }
-        return "/resources/"+file.getOriginalFilename();
+        return "/resources/"+year+"/"+month+"/"+file.getOriginalFilename();
     }
 
-
+    @GetMapping("/new")
+    public String createPost(){
+        return "new";
+    }
 
     @GetMapping("/initdata")
     public String initdata() {

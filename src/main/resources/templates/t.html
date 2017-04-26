@@ -160,7 +160,7 @@
 <script type="text/javascript" th:src="@{/js/wangEditor.min.js}"></script>
 <script type="text/javascript">
     var editor = new wangEditor('Edit');
-    var csrfToken = $("meta[name='_csrf'").attr("content");
+    var csrfToken = $("meta[name='_csrf']").attr("content");
     editor.config.uploadHeaders = {'X-CSRF-TOKEN':csrfToken
     };
     editor.config.uploadImgFileName = 'FileName';
