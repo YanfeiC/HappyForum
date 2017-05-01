@@ -9,7 +9,7 @@
         <tbody>
         <tr>
             <td width="auto" valign="middle"><span class="item_title"><a href="@{'/t/'+${post.id}}"
-                                                                         th:text="${post.title}">title</a></span>
+                                                                         th:utext="${post.title}">title</a></span>
                 <div class="sep5"></div>
                 <span class="small fade"><div class="votes"></div><a class="node"
                                                                      th:href="@{'/go/'+${post.topic.name}}"

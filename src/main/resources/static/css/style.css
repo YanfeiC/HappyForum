@@ -42,7 +42,6 @@ body {
     padding: 0px;
     margin: 0px;
     font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
-    min-width: 820px;
 }
 
 #Wrapper {
@@ -51,12 +50,6 @@ body {
     background-image: url(/img/shadow_light.png);
     background-repeat: repeat-x;
     overflow:hidden;
-}
-
-.content {
-    min-width: 600px;
-    max-width: 1100px;
-    margin: 0px auto 0px auto;
 }
 
 .sep20 {
@@ -71,20 +64,16 @@ body {
     height: 10px;
 }
 
-#Leftbar {
-    width: 0px;
-    float: left;
-}
-
 #Rightbar {
-    width: 270px;
-    float: right;
-    margin-right: 20px;
+    width: 25%;
+    float: left;
+    margin-left: 20px;
 }
 
 #Main {
-    width: auto;
-    margin: 0px 310px 0px 20px;
+    width: 70%;
+    margin: 0px 0px 0px 20px;
+    float: left;
 }
 
 .box {
@@ -436,4 +425,32 @@ a.tb:link, a.tb:visited, a.tb:active {
     font-family: 'Helvetica Neue', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
     margin: 0px;
     box-sizing: border-box;
+}
+@media screen and (max-width:500px){
+    #Rightbar {
+        width:100%;
+        margin: 0px 0px 20px 0px;
+    }
+
+    #Main {
+        width:auto;
+        margin: 0px 0px 0px 0px;
+    }
+    .content {
+        min-width: 200px;
+        max-width: 500px;
+        margin: 0px auto 0px auto;
+    }
+    body {
+        padding: 0px;
+        margin: 0px auto;
+        font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+    }
+    img.avatar {
+        width:40px;
+        height:40px;
+    }
+    #Search{
+       display:none;
+    }
 }

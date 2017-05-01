@@ -3,6 +3,7 @@
 <head>
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/css/style.css}"/>
     <script src="//cdn.bootcss.com/jquery/3.2.0/jquery.min.js"></script>
     <script th:src="@{/js/signup.js}"></script>
@@ -11,24 +12,6 @@
 <div id="Top" th:include="Top :: copy"></div>
 <div id="Wrapper">
     <div class="content">
-        <div id="Leftbar"></div>
-        <div id="Rightbar">
-            <div class="sep20"></div>
-            <div class="box">
-                <div class="cell">
-                    <strong>V2EX = way to explore</strong>
-                    <div class="sep5"></div>
-                    <span class="fade">V2EX 是一个关于分享和探索的地方</span>
-                </div>
-                <div class="inner">
-                    <div class="sep5"></div>
-                    <div align="center"><a href="/signup" class="super normal button">现在注册</a>
-                        <div class="sep5"></div>
-                        <div class="sep10"></div>
-                        已注册用户请 &nbsp;<a href="/signin">登录</a></div>
-                </div>
-            </div>
-        </div>
         <div id="Main">
             <div class="sep20"></div>
             <div class="box">
@@ -77,6 +60,23 @@
                             </tbody>
                         </table>
                     </form>
+                </div>
+            </div>
+        </div>
+        <div id="Rightbar">
+            <div class="sep20"></div>
+            <div class="box">
+                <div class="cell">
+                    <strong>V2EX = way to explore</strong>
+                    <div class="sep5"></div>
+                    <span class="fade">V2EX 是一个关于分享和探索的地方</span>
+                </div>
+                <div class="inner">
+                    <div class="sep5"></div>
+                    <div align="center"><a href="/signup" class="super normal button">现在注册</a>
+                        <div class="sep5"></div>
+                        <div class="sep10"></div>
+                        已注册用户请 &nbsp;<a href="/signin">登录</a></div>
                 </div>
             </div>
         </div>

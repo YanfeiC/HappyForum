@@ -28,7 +28,7 @@
     </div>
     <div class="inner"
          th:classappend="${replypage.getContent().indexOf(reply) == (replypage.getContent().size() -1)} ? 'cell':'inner'">
-        <div class="reply_content" th:text="${reply.content}"></div>
+        <div class="reply_content" th:utext="${reply.content}"></div>
     </div>
 </div>
 

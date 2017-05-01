@@ -2,18 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
 <head>
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/css/style.css}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 </head>
 <body>
 <div id="Top" th:include="Top :: copy"></div>
 <div id="Wrapper">
     <div class="content">
-        <div id="Leftbar"></div>
-        <div id="Rightbar">
-            <div class="sep20"></div>
-            <div class="box" th:include="memberBox::copy"></div>
-            <div class="sep20"></div>
-            <div class="sep20"></div>
-        </div>
         <div id="Main">
             <div class="sep20"></div>
             <div class="box">
@@ -36,6 +30,12 @@
                      th:include="numberNav::copy"></div>
             </div>
 
+        </div>
+        <div id="Rightbar">
+            <div class="sep20"></div>
+            <div class="box" th:include="memberBox::copy"></div>
+            <div class="sep20"></div>
+            <div class="sep20"></div>
         </div>
     </div>
     <div class="c"></div>

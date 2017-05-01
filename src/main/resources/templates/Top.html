@@ -10,7 +10,7 @@
             <table cellspacing="0" cellpadding="0" width="100%" border="0">
                 <tbody>
                 <tr>
-                    <td align="left" width="110">
+                    <td align="left" width="5%">
                         <a th:href="@{/}" name="top" title="way to explore">
                             <img th:src="@{/img/logo2x.png}" alt="V2EX" align="default" height="30" width="94" border="0"/>
                         </a>
@@ -24,12 +24,11 @@
                             </form>
                         </div>
                     </td>
-                    <td style="padding-top: 2px;" align="right" width="570">
+                    <td style="padding-top: 2px;" align="right" width="80%">
                         <a th:href="@{/}" class="top">首页&nbsp;&nbsp;&nbsp;</a>
                         <a sec:authorize="isAnonymous()" th:href="@{/signup}" class="top">注册&nbsp;&nbsp;&nbsp;</a>
                         <a sec:authorize="isAnonymous()" th:href="@{/signin}" class="top">登录&nbsp;&nbsp;&nbsp;</a>
                         <a sec:authorize="isAuthenticated()" th:href="@{'/member/'+${#authentication.principal.username}}" class="top" th:text="${#authentication.principal.username}+'&nbsp;&nbsp;&nbsp;'"></a>
-                        <a sec:authorize="isAuthenticated()" th:href="@{/member/t}" class="top">时间轴&nbsp;&nbsp;&nbsp;</a>
                         <a sec:authorize="isAuthenticated()" th:href="@{/member/settings}" class="top">设置&nbsp;&nbsp;&nbsp;</a>
                         <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="top">登出&nbsp;&nbsp;&nbsp;</a>
                     </td>
