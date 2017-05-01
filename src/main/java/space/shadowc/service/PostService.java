@@ -46,4 +46,12 @@ public class PostService {
     public void save(Post post){
         postDao.save(post);
     }
+
+    public Post findByName(String name){
+        return postDao.findByTitle(name);
+    }
+
+    public int findIdByTitle(String title){
+        return postDao.findByTitle(title).getId();
+    }
 }

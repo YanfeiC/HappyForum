@@ -72,6 +72,7 @@ body {
 
 #Main {
     width: 70%;
+    min-width: 700px;
     margin: 0px 0px 0px 20px;
     float: left;
 }
@@ -426,7 +427,7 @@ a.tb:link, a.tb:visited, a.tb:active {
     margin: 0px;
     box-sizing: border-box;
 }
-@media screen and (max-width:500px){
+@media screen and (max-width:700px){
     #Rightbar {
         width:100%;
         margin: 0px 0px 20px 0px;
@@ -435,10 +436,11 @@ a.tb:link, a.tb:visited, a.tb:active {
     #Main {
         width:auto;
         margin: 0px 0px 0px 0px;
+        min-width: 250px;
     }
     .content {
         min-width: 200px;
-        max-width: 500px;
+        max-width: 700px;
         margin: 0px auto 0px auto;
     }
     body {

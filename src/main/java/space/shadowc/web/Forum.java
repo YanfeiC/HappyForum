@@ -10,10 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import space.shadowc.domain.Post;
-import space.shadowc.domain.Reply;
-import space.shadowc.domain.Topic;
-import space.shadowc.domain.User;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import space.shadowc.domain.*;
 import space.shadowc.service.*;
 
 import java.io.IOException;
@@ -47,6 +45,12 @@ public class Forum {
 
     @Autowired
     private InitData initData;
+
+    @Autowired
+    private TopicService topicService;
+
+    @Autowired
+    private TagService tagService;
 
     @Value("${resources.path}")
     private String resourcesPath;
@@ -100,8 +104,10 @@ public class Forum {
             Reply reply = new Reply();
             reply.setEditor(user);
             reply.setContent(content);
+            System.out.println(content);
             reply.setModifyTime(new Date());
             reply.setPost(post);
+            post.setLastReplyTime(new Date());
             replyService.save(reply);
         }
         return "redirect:/t/" + postId;
@@ -113,7 +119,7 @@ public class Forum {
         DateTime date = DateTime.now();
         String month = date.toString("MM");
         String year = date.toString("yyyy");
-        Path location = Paths.get(resourcesPath +  year + "/" + month);
+        Path location = Paths.get(resourcesPath + year + "/" + month);
         if (!Files.exists(location)) {
             try {
                 Files.createDirectories(location);
@@ -123,17 +129,55 @@ public class Forum {
         }
 
         try {
-            if (file.isEmpty()) { return "error|上传图片失败";}
+            if (file.isEmpty()) {
+                return "error|上传图片失败";
+            }
             Files.copy(file.getInputStream(), location.resolve(file.getOriginalFilename()));
         } catch (IOException e) {
             return "error|上传失败";
         }
-        return "/resources/"+year+"/"+month+"/"+file.getOriginalFilename();
+        return "/resources/" + year + "/" + month + "/" + file.getOriginalFilename();
     }
 
     @GetMapping("/new")
-    public String createPost(){
+    public String createPost(Model model) {
+        List<Topic> topics = topicService.findAll();
+        List<Tag> tags = tagService.findAll();
+        model.addAttribute("topics", topics);
+        model.addAttribute("tags", tags);
         return "new";
+    }
+
+    @PostMapping("/new")
+    public String savePost(String title, String content, String topic, String[] tag, RedirectAttributes redirectAttributes) {
+        ArrayList<String> errors = new ArrayList<>();
+        if (title == null) errors.add("标题不能为空");
+        if (title.length() > 120) errors.add("标题超过字符限制");
+        if (content.length() > 20000) errors.add("内容超过字符限制");
+        if (topicService.findByName(topic) == null) errors.add("不存在的主题");
+        if (!tagService.tagValidator(tag)) errors.add("不存在的标签");
+        if (errors.size()==0 ) {
+            Post post = new Post();
+            post.setTitle(title);
+            post.setContent(content);
+            post.setTopic(topicService.findByName(topic));
+            List<Tag> tags = new ArrayList<>();
+            for (String t : tag) {
+                tags.add(tagService.findByName(t));
+            }
+            post.setTags(tags);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String username = auth.getName();
+            post.setEditor(userService.findByUsername(username));
+            post.setCreateTime(new Date());
+            post.setVoteCount(0);
+            post.setPageView(0);
+            post.setLastReplyTime(new Date());
+            postService.save(post);
+            return "redirect:/t/"+postService.findIdByTitle(title);
+        }
+        redirectAttributes.addFlashAttribute("errors", errors);
+        return "redirect:/new";
     }
 
     @GetMapping("/initdata")

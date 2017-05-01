@@ -27,11 +27,11 @@
                     <small class="gray">
                         <a th:href="@{'/member/'+${post.editor.username}}"
                            th:text="${post.editor.username}">username</a> ·
-                        <span th:text="${#dates.format(post.createTime,'yyyy/mm/dd hh:mm')}"></span>&nbsp;·&nbsp;<span
+                        <span th:text="${#dates.format(post.createTime,'yyyy/MM/dd HH:mm')}"></span>&nbsp;·&nbsp;<span
                             th:text="${post.pageView}+'次点击'"></span></small>
                 </div>
                 <div class="cell">
-                    <div class="topic_content" th:text="${post.content}">
+                    <div class="topic_content" th:utext="${post.content}">
                     </div>
                 </div>
                 <div class="topic_buttons">
@@ -47,13 +47,14 @@
                 <div class="cell">
                     <div class="fr" style="margin: -3px -5px 0px 0px;">
                         <a th:each="tag:${post.tags}" class="tag" th:href="@{'/tag/'+${tag.name}}">
-                            <li class="fa fa-tag" th:text="tag.name"></li>
+                            <li class="fa fa-tag" ></li>
+                            <span th:text="${tag.name}"></span>
                         </a>
                     </div>
                     <span class="gray">
                         <span th:text="${post.replyCount}+'&nbsp;回复'"></span>
                         <strong class="snow">|</strong>&nbsp;直到
-                        <span th:text="${#dates.format(post.lastReplyTime,'yyyy/MM/dd HH:mm')}"></span>
+                        <span th:text="${post.lastReplyTime!=null ? #dates.format(post.lastReplyTime,'yyyy/MM/dd HH:mm') : #dates.format(#dates.createNow(),'yyyy/MM/dd HH:mm') }"></span>
                     </span>
                 </div>
                 <div class="cell"
@@ -82,7 +83,7 @@
                                 <strong><a th:href="@{'/member/'+${reply.editor.username}}" class="dark"
                                            th:text="${reply.editor.username}">username</a></strong>&nbsp;
                                 &nbsp;<span class="fade small"
-                                            th:text="${#dates.format(reply.modifyTime,'yyyy/mm/dd hh:mm')}">time</span>
+                                            th:text="${#dates.format(reply.modifyTime,'yyyy/MM/dd HH:mm')}">time</span>
                                 <div class="sep5"></div>
                                 <div class="reply_content" th:utext="${reply.content}">
 

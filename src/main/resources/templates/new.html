@@ -5,8 +5,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/wangEditor.min.css}"/>
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <link th:href="@{/css/select2.css}" rel="stylesheet" />
-    <script th:src="@{/js/select2.js}"></script>
+    <link th:href="@{/css/select2.css}" rel="stylesheet"/>
+
 </head>
 <body>
 <div id="Top" th:include="Top :: copy"></div>
@@ -16,9 +16,11 @@
             <div class="sep20"></div>
             <div class="box" id="box">
                 <div class="cell"><a href="/">V2EX</a> <span class="chevron">&nbsp;›&nbsp;</span>创作新主题</div>
-                <div class="cell">
                     <form method="post" th:action="@{/new}" id="compose">
-                        <div class="cell"><div class="fr fade" id="title_remaining">120</div>主题标题</div>
+                        <div class="cell">
+                            <div class="fr fade" id="title_remaining">120</div>
+                            主题标题
+                        </div>
                         <div class="cell" style="padding: 0px; background-color: #fff;">
                         <textarea class="msl" rows="1"
                                   maxlength="120"
@@ -29,21 +31,33 @@
                                   spellcheck="true"
                                   style="z-index: auto; position: relative; line-height: 20px; font-size: 14px; transition: none; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(249, 249, 249);"></textarea>
                         </div>
-                        <div class="cell"><div class="fr fade" id="content_remaining">20000</div>正文</div>
-                        <textarea name="content" id="Edit" style="height:400px;" ></textarea>
-
-                    </form></div>
+                        <div class="cell">
+                            <div class="fr fade" id="content_remaining">20000</div>
+                            正文
+                        </div>
+                        <div class="cell">
+                            <textarea name="content" id="Edit" style="height:400px;"></textarea></div>
+                        <div class="cell">
+                            <span class="dark">主题&nbsp;&nbsp;</span>
+                            <select id="topicSelect" name="topic" style="width:30%">
+                                <option th:each="topic:${topics}" th:value="${topic.name}"
+                                        th:text="${topic.name}"></option>
+                            </select>
+                        </div>
+                        <div class="cell">
+                            <span class="dark">标签&nbsp;&nbsp;</span>
+                            <select id="tagSelect" name="tag" style="width:40%" multiple="multiple">
+                                <option th:each="tag:${tags}" th:value="${tag.name}" th:text="${tag.name}"></option>
+                            </select>
+                        </div>
+                    </form>
                 <div class="cell">
-                    <div class="fr"><span id="error_message"></span> &nbsp;
-                        <button type="button" class="super normal button" onclick="publishTopic();">
-                            <li class="fa fa-paper-plane"></li>
-                            &nbsp;发布主题
-                        </button>
-                    </div>
-                    <button class="super normal button" onclick="previewTopic();">
-                        <li class="fa fa-eye"></li>
-                        &nbsp;预览主题
+                    <button type="submit" class="super normal button" form="compose">
+                        &nbsp;发布主题
                     </button>
+                </div>
+                <div class="cell" th:each="error:${errors}">
+                    <span th:text="${error}"></span>
                 </div>
             </div>
             <div class="sep20"></div>
@@ -101,6 +115,7 @@
 <div id="Bottom" th:include="Bottom :: copy"></div>
 <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.0/jquery.min.js"></script>
 <script type="text/javascript" th:src="@{/js/wangEditor.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/select2.js}"></script>
 <script type="text/javascript">
     var editor = new wangEditor('Edit');
     var csrfToken = $("meta[name='_csrf']").attr("content");
@@ -108,8 +123,14 @@
     editor.config.uploadImgFileName = 'FileName';
     editor.config.uploadImgUrl = '/upload';
     editor.create();
-    $(".js-example-basic-multiple").select2();
-    $(".js-example-basic-single").select2();
+    $(document).ready(function () {
+        $("#topicSelect").select2({
+            placeholder: "添加主题"
+        });
+        $("#tagSelect").select2({
+            placeholder: "添加标签"
+        });
+    });
 </script>
 </body>
 </html>

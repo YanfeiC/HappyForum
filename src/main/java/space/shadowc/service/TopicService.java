@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import space.shadowc.dao.TopicDao;
 import space.shadowc.domain.Topic;
 
+import java.util.List;
+
 /**
  * Created by cyf on 17-4-14.
  */
@@ -15,7 +17,15 @@ public class TopicService {
     @Autowired
     private TopicDao topicDao;
 
-    public void save(Topic topic){
+    public void save(Topic topic) {
         topicDao.save(topic);
+    }
+
+    public List<Topic> findAll() {
+        return topicDao.findAll();
+    }
+
+    public Topic findByName(String name) {
+        return topicDao.findByName(name);
     }
 }

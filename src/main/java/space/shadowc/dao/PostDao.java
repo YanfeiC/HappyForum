@@ -19,4 +19,6 @@ public interface PostDao extends JpaRepository<Post, Integer> {
 
    Page<Post> findAll(Pageable pageable);
 
+   Post findByTitle(String name);
+
 }
